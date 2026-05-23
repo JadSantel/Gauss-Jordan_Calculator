@@ -229,11 +229,46 @@
         (Intermediate values kept as fractions for exactness; the calculator performs these with full floating-point precision.)
       </p>
 
-      <h3>Steps 6–9 · Normalize and eliminate columns 3 and 4 similarly…</h3>
+      <h3>Step 6 · Normalize \(R_3 \leftarrow R_3 \div (-\tfrac{17}{12})\) (multiply by \(-\tfrac{12}{17}\))</h3>
+      \[
+      \left[\begin{array}{cccc|c}
+        1 & 0 & -\tfrac{9}{10} & \tfrac{9}{10} & \tfrac{137}{30} \\
+        0 & 1 & \tfrac{7}{10} & -\tfrac{7}{10} & -\tfrac{11}{10} \\
+        0 & 0 & 1 & -1 & -\tfrac{121}{85} \\
+        0 & 0 & \tfrac{19}{10} & \tfrac{8}{15} & \tfrac{26}{15}
+      \end{array}\right]
+      \]
+
+      <h3>Step 7 · Eliminate column 3 from \(R_1, R_2, R_4\)</h3>
       <p>
-        Each step follows the same pattern: find the largest pivot in the remaining subcolumn,
-        swap rows if needed, scale the pivot row to 1, then eliminate above and below.
-        After completing all four columns we arrive at RREF:
+        \(R_1 \leftarrow R_1 + \tfrac{9}{10}\,R_3\),\quad
+        \(R_2 \leftarrow R_2 - \tfrac{7}{10}\,R_3\),\quad
+        \(R_4 \leftarrow R_4 - \tfrac{19}{10}\,R_3\)
+      </p>
+      \[
+      \left[\begin{array}{cccc|c}
+        1 & 0 & 0 & 0 & \tfrac{128}{85} \\
+        0 & 1 & 0 & -\tfrac{3}{5} & -\tfrac{32}{85} \\
+        0 & 0 & 1 & -1 & -\tfrac{121}{85} \\
+        0 & 0 & 0 & \tfrac{26}{15} & \tfrac{26}{15}
+      \end{array}\right]
+      \]
+
+      <h3>Step 8 · Normalize \(R_4 \leftarrow R_4 \div \tfrac{26}{15}\) (multiply by \(\tfrac{15}{26}\))</h3>
+      \[
+      \left[\begin{array}{cccc|c}
+        1 & 0 & 0 & 0 & \tfrac{128}{85} \\
+        0 & 1 & 0 & -\tfrac{3}{5} & -\tfrac{32}{85} \\
+        0 & 0 & 1 & -1 & -\tfrac{121}{85} \\
+        0 & 0 & 0 & 1 & 1
+      \end{array}\right]
+      \]
+
+      <h3>Step 9 · Eliminate column 4 from \(R_1, R_2, R_3\)</h3>
+      <p>
+        \(R_1 \leftarrow R_1\) (no \(x_4\) term in \(R_1\)),\quad
+        \(R_2 \leftarrow R_2 + \tfrac{3}{5}\,R_4\),\quad
+        \(R_3 \leftarrow R_3 + R_4\)
       </p>
 
       <h3>Final RREF</h3>
