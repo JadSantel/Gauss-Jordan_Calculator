@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Gauss–Jordan Elimination — Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Numerical Methods</p>
+    <h1 class="hero-title">
+      Gauss–Jordan<br>
+      <span class="hero-title-accent">Elimination</span>
+    </h1>
+    <p class="hero-sub">
+      Transform any linear system into reduced row echelon form — step by step.
+      Explore the theory, follow worked examples, or solve your own system instantly.
+    </p>
+    <div class="hero-cta-row">
+      <a href="/discussion" class="btn btn-primary">Start Learning</a>
+      <a href="/calculator" class="btn btn-ghost">Open Calculator →</a>
+    </div>
+  </div>
+  <div class="hero-matrix-art" aria-hidden="true">
+    <div class="matrix-display">
+      \[
+      \left[\begin{array}{ccc|c}
+        2 & 1 & -1 & 8 \\
+        -3 & -1 & 2 & -11 \\
+        -2 & 1 & 2 & -3
+      \end{array}\right]
+      \xrightarrow{\text{GJ}}
+      \left[\begin{array}{ccc|c}
+        1 & 0 & 0 & 2 \\
+        0 & 1 & 0 & 3 \\
+        0 & 0 & 1 & -1
+      \end{array}\right]
+      \]
+    </div>
+  </div>
+</section>
+
+<section class="cards-section">
+  <div class="cards-grid">
+    <a href="/discussion" class="card">
+      <div class="card-icon">∑</div>
+      <h3 class="card-title">Theory</h3>
+      <p class="card-desc">Understand the mathematical foundation, algorithm steps, and conditions for a unique solution.</p>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="/examples" class="card">
+      <div class="card-icon">✎</div>
+      <h3 class="card-title">Worked Examples</h3>
+      <p class="card-desc">Two fully solved systems with every elimination step shown in detail using MathJax rendering.</p>
+      <span class="card-arrow">→</span>
+    </a>
+    <a href="/calculator" class="card card-highlight">
+      <div class="card-icon">⌁</div>
+      <h3 class="card-title">Interactive Calculator</h3>
+      <p class="card-desc">Enter any 2×2 to 6×6 system. Get exact step-by-step Gauss–Jordan reduction instantly.</p>
+      <span class="card-arrow">→</span>
+    </a>
+  </div>
+</section>
+{% endblock %}

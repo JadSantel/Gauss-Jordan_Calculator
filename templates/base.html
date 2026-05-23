@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Gauss–Jordan Calculator{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(','\\)'], ['$','$']], displayMath: [['\\[','\\]'], ['$$','$$']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-bracket">[</span>GJ<span class="logo-bracket">]</span>
+      </a>
+      <nav class="main-nav">
+        <a href="/discussion" class="nav-link {% if request.path == '/discussion' %}active{% endif %}">Discussion</a>
+        <a href="/examples"   class="nav-link {% if request.path == '/examples'   %}active{% endif %}">Examples</a>
+        <a href="/calculator" class="nav-link {% if request.path == '/calculator' %}active{% endif %}">Calculator</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <p>Gauss–Jordan Elimination · Numerical Methods PIT Project · Jadon Joseph Santelices · 2026</p>
+  </footer>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

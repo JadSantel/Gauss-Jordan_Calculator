@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% block title %}Discussion — Gauss–Jordan{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+  <aside class="toc">
+    <p class="toc-label">On this page</p>
+    <ul>
+      <li><a href="#intro">Introduction</a></li>
+      <li><a href="#theory">Mathematical Theory</a></li>
+      <li><a href="#algorithm">Algorithm Steps</a></li>
+      <li><a href="#rref">RREF Definition</a></li>
+      <li><a href="#existence">Existence &amp; Uniqueness</a></li>
+      <li><a href="#complexity">Complexity</a></li>
+    </ul>
+  </aside>
+
+  <article class="content-article">
+    <header class="article-header">
+      <p class="article-eyebrow">Numerical Methods · Linear Systems</p>
+      <h1 class="article-title">Gauss–Jordan Elimination</h1>
+      <p class="article-lead">
+        A direct algorithm for solving \(n \times n\) linear systems that extends
+        Gaussian elimination by also eliminating <em>upward</em>, producing the
+        Reduced Row Echelon Form (RREF) in a single pass.
+      </p>
+    </header>
+
+    <section id="intro">
+      <h2>Introduction</h2>
+      <p>
+        Consider a system of \(n\) linear equations in \(n\) unknowns
+        \(x_1, x_2, \ldots, x_n\):
+      </p>
+      \[
+      \begin{cases}
+        a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1 \\
+        a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = b_2 \\
+        \quad \vdots \\
+        a_{n1}x_1 + a_{n2}x_2 + \cdots + a_{nn}x_n = b_n
+      \end{cases}
+      \]
+      <p>
+        We represent this compactly as the augmented matrix \([A \mid \mathbf{b}]\).
+        Gauss–Jordan elimination applies elementary row operations to transform
+        \(A\) into the \(n \times n\) identity matrix \(I_n\), simultaneously
+        transforming \(\mathbf{b}\) into the solution vector \(\mathbf{x}\).
+      </p>
+    </section>
+
+    <section id="theory">
+      <h2>Mathematical Theory</h2>
+      <p>
+        Three <strong>elementary row operations</strong> preserve the solution set
+        of a linear system:
+      </p>
+      <div class="def-box">
+        <ol class="def-list">
+          <li>
+            <strong>Row swap</strong> — \(R_i \leftrightarrow R_j\)&ensp;
+            Interchange two rows.
+          </li>
+          <li>
+            <strong>Scalar multiplication</strong> — \(R_i \leftarrow k \cdot R_i\) where \(k \neq 0\)&ensp;
+            Multiply a row by a nonzero constant.
+          </li>
+          <li>
+            <strong>Row addition</strong> — \(R_i \leftarrow R_i + k \cdot R_j\)&ensp;
+            Add a multiple of one row to another.
+          </li>
+        </ol>
+      </div>
+      <p>
+        Because these operations are invertible, the transformed system has
+        exactly the same solution set as the original.
+      </p>
+      <p>
+        The method was systematised by Carl Friedrich Gauss and later refined by
+        Wilhelm Jordan (1842–1899), who introduced the back-substitution
+        elimination step that produces RREF directly.
+      </p>
+    </section>
+
+    <section id="algorithm">
+      <h2>Algorithm Steps</h2>
+      <p>
+        For an \(n \times n\) system represented as the augmented matrix
+        \([A \mid \mathbf{b}]\):
+      </p>
+      <div class="algo-steps">
+        <div class="algo-step">
+          <span class="step-num">01</span>
+          <div class="step-body">
+            <strong>Form the augmented matrix</strong>
+            \[ [A \mid \mathbf{b}] \]
+          </div>
+        </div>
+        <div class="algo-step">
+          <span class="step-num">02</span>
+          <div class="step-body">
+            <strong>Partial Pivoting</strong> — For column \(j\), find the row
+            \(r \geq j\) with the largest \(|a_{rj}|\). Swap \(R_j \leftrightarrow R_r\).
+            This improves numerical stability.
+          </div>
+        </div>
+        <div class="algo-step">
+          <span class="step-num">03</span>
+          <div class="step-body">
+            <strong>Normalize the pivot row</strong>
+            \[ R_j \leftarrow \frac{R_j}{a_{jj}} \quad (a_{jj} \neq 0)\]
+            The pivot element becomes 1.
+          </div>
+        </div>
+        <div class="algo-step">
+          <span class="step-num">04</span>
+          <div class="step-body">
+            <strong>Eliminate all other rows</strong>
+            For every row \(i \neq j\):
+            \[ R_i \leftarrow R_i - a_{ij} \cdot R_j \]
+            This zeros out the entire column above <em>and</em> below the pivot
+            (unlike basic Gaussian elimination, which only zeros below).
+          </div>
+        </div>
+        <div class="algo-step">
+          <span class="step-num">05</span>
+          <div class="step-body">
+            <strong>Repeat</strong> for columns \(j = 1, 2, \ldots, n\).
+          </div>
+        </div>
+        <div class="algo-step">
+          <span class="step-num">06</span>
+          <div class="step-body">
+            <strong>Read off the solution</strong> — The augmented matrix is now
+            \([I_n \mid \mathbf{x}^*]\). The right column gives \(x_1^*, \ldots, x_n^*\).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rref">
+      <h2>Reduced Row Echelon Form (RREF)</h2>
+      <p>A matrix is in RREF if and only if:</p>
+      <div class="def-box">
+        <ol class="def-list">
+          <li>All zero rows are at the bottom.</li>
+          <li>The leading entry (pivot) of each non-zero row is <strong>1</strong>.</li>
+          <li>Each pivot is to the <em>right</em> of the pivot in the row above.</li>
+          <li>Each pivot is the <em>only</em> nonzero entry in its column.</li>
+        </ol>
+      </div>
+      <p>
+        Every matrix has a unique RREF. Gauss–Jordan elimination is the standard
+        constructive proof of this fact.
+      </p>
+    </section>
+
+    <section id="existence">
+      <h2>Existence and Uniqueness</h2>
+      <div class="info-grid">
+        <div class="info-card info-green">
+          <h4>Unique Solution</h4>
+          <p>\(\det(A) \neq 0\) — the matrix is invertible. RREF yields \(I_n\)
+             and one solution \(\mathbf{x}^* = A^{-1}\mathbf{b}\).</p>
+        </div>
+        <div class="info-card info-yellow">
+          <h4>Infinitely Many Solutions</h4>
+          <p>A pivot column is missing (free variable exists). The system is
+             consistent but underdetermined.</p>
+        </div>
+        <div class="info-card info-red">
+          <h4>No Solution</h4>
+          <p>A row of the form \([0\ 0\ \cdots\ 0 \mid c],\ c \neq 0\) appears —
+             contradictory equation \(0 = c\).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="complexity">
+      <h2>Computational Complexity</h2>
+      <p>
+        Gauss–Jordan requires approximately \(\frac{n^3}{2}\) multiplications
+        and \(\frac{n^3}{2}\) additions — roughly <strong>twice</strong> the
+        work of Gaussian elimination with back-substitution (\(\frac{n^3}{3}\)).
+      </p>
+      \[
+        \text{Operations} \approx n^3 \quad \text{(floating-point)}
+      \]
+      <p>
+        However, Gauss–Jordan simultaneously computes \(A^{-1}\) when applied to
+        \([A \mid I]\), making it competitive for matrix inversion tasks.
+      </p>
+    </section>
+
+    <div class="page-nav-row">
+      <a href="/examples" class="btn btn-primary">See Worked Examples →</a>
+    </div>
+  </article>
+</div>
+{% endblock %}
